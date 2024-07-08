@@ -13,7 +13,7 @@ const RestaurantCard = (props) => {
             }
           />
           <div className="delivery-time">
-            {resData.info.sla.deliveryTime} mins
+            {resData.info.sla.deliveryTime} min
           </div>
           <div className="bookmark"></div>
         </div>
