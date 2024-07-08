@@ -1442,7 +1442,10 @@ const resData = [
 const Body = () => {
   return (
     <div>
-      <div className="search">Search</div>
+      <div className="search">
+        <input type="text" />
+        <button>Search</button>
+      </div>
       <div style={{ display: "flex", flexWrap: "wrap" }}>
         {resData.map((resList, index) => (
           <div key={index}>
