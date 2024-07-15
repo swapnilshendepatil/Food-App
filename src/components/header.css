@@ -3,9 +3,9 @@
     justify-content: space-between;
 }
 .logoContainer >img {
-    width: 200px;
-    height: 170px;
-    margin-top: -20px;
+    width: 100px;
+    height: 100px;
+    margin-top: 0px;
 }
 .nav-items >ul{
     display: flex;
