@@ -1,25 +1,17 @@
 import { useEffect, useState } from "react";
 import RestaurantCard from "./RestaurantCard";
-import { useQuery } from "@tanstack/react-query";
 import ShimmerUi from "./ShimmerUi";
 import { Link } from "react-router-dom";
-import { fetchData } from "../utils/API";
-
-
+import useRestaurantList from "../utils/CustomHooks/useRestaurantList";
+import useOnlineStatus from "../utils/CustomHooks/useOnlineStatus";
+import './Body.css'
 
 const Body = () => {
-  const {
-    data: restaurantsList,
-    isLoading,
-    isError,
-  } = useQuery({
-    queryKey: ["restaurantListData"],
-    queryFn: fetchData,
-  });
-
+  const { restaurantsList, isLoading, isError } = useRestaurantList();
   const [listRes, setListRes] = useState([]);
   const [filterRes, setFilterRes] = useState([]);
   const [searchinput, setSearchInput] = useState("");
+  const checkOnline = useOnlineStatus();
 
   useEffect(() => {
     if (restaurantsList) {
@@ -45,11 +37,11 @@ const Body = () => {
   if (isError) {
     return <div>Error loading data...</div>;
   }
-
+  if (checkOnline === false) return <h1>Please check internet connection</h1>;
   return (
     <div>
-      <div style={{ display: "flex", justifyContent: "space-evenly" }}>
-        <div>
+      <div className="search-bar-container">
+        <div className="search-bar">
           <input
             type="text"
             value={searchinput}
@@ -58,13 +50,15 @@ const Body = () => {
           <button onClick={handleSearch}>Search</button>
         </div>
         <div>
-          <button onClick={avgRatingHandle}>Top Rated Restaurants</button>
+          <button className="top-rated-button" onClick={avgRatingHandle}>
+            Top Rated Restaurants
+          </button>
         </div>
       </div>
       <div style={{ display: "flex", flexWrap: "wrap" }}>
         {filterRes.map((res) => (
           <div key={res?.info?.id}>
-            <Link to={'/restaurant/' + res?.info?.id}>
+            <Link to={"/restaurant/" + res?.info?.id}>
               <RestaurantCard resData={res} />
             </Link>
           </div>

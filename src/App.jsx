@@ -6,6 +6,11 @@ import Contact from "./components/Contact";
 import Error from "./components/Error";
 import Cart from "./components/Cart";
 import RestroMenupage from "./components/RestroMenupage";
+// import Grocery from "./components/Grocery";
+import { lazy, Suspense } from "react";
+
+
+const User = lazy(() => import('./components/Grocery'))
 
 function App() {
   return (
@@ -40,6 +45,14 @@ export const appRouter = createBrowserRouter([
       {
         path: '/restaurant/:resId',
         element: <RestroMenupage />
+      },
+      {
+        path: '/user',
+        element: (
+          <Suspense>
+            <User />
+          </Suspense>
+        )
       }
     ],
     errorElement: <Error />
