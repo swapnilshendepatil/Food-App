@@ -67,3 +67,10 @@ body {
   margin-bottom: 6px;
   margin-left: 30px;
 }
+.label {
+  position: absolute;
+  margin: 10px;
+  padding: 10px;
+  z-index: 1;
+  background: white;
+}

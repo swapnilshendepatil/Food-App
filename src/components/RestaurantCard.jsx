@@ -33,4 +33,17 @@ const RestaurantCard = ({ resData }) => {
   );
 };
 
+export const SubheaderComponents = (RestaurantCard) => {
+  return (props) => {
+    return (
+        <div>
+          <span className="label">
+            {props?.resData?.info?.aggregatedDiscountInfoV3?.subHeader}
+          </span>
+          <RestaurantCard {...props} />
+        </div>
+    );
+  };
+};
+
 export default RestaurantCard;

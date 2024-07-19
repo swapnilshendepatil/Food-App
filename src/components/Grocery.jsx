@@ -20,7 +20,6 @@ const Grocery = () => {
         }
     }, [data])
 
-    console.log(getData)
     return (
         <div>
             {getData.map((user) => (

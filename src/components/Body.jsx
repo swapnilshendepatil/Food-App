@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
-import RestaurantCard from "./RestaurantCard";
+import RestaurantCard, { SubheaderComponents } from "./RestaurantCard";
 import ShimmerUi from "./ShimmerUi";
 import { Link } from "react-router-dom";
 import useRestaurantList from "../utils/CustomHooks/useRestaurantList";
 import useOnlineStatus from "../utils/CustomHooks/useOnlineStatus";
 import './Body.css'
+
 
 const Body = () => {
   const { restaurantsList, isLoading, isError } = useRestaurantList();
@@ -13,6 +14,7 @@ const Body = () => {
   const [searchinput, setSearchInput] = useState("");
   const checkOnline = useOnlineStatus();
 
+  const SubHeaderRestaurantComponents = SubheaderComponents(RestaurantCard)
   useEffect(() => {
     if (restaurantsList) {
       setListRes(restaurantsList);
@@ -58,9 +60,18 @@ const Body = () => {
       <div style={{ display: "flex", flexWrap: "wrap" }}>
         {filterRes.map((res) => (
           <div key={res?.info?.id}>
-            <Link to={"/restaurant/" + res?.info?.id}>
-              <RestaurantCard resData={res} />
-            </Link>
+            {
+              res?.info?.aggregatedDiscountInfoV3?.subHeader
+                ?
+                <Link to={"/restaurant/" + res?.info?.id}>
+                  <SubHeaderRestaurantComponents resData={res} />
+                </Link>
+                :
+                <Link to={"/restaurant/" + res?.info?.id}>
+                  <RestaurantCard resData={res} />
+                </Link>
+            }
+
           </div>
         ))}
       </div>
