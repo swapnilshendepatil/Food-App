@@ -1,16 +1,26 @@
-import { useState } from "react";
+// import { useState } from "react";
 import { LOGO_URL } from "../utils/constants";
 import { Link } from "react-router-dom";
 import useOnlineStatus from "../utils/CustomHooks/useOnlineStatus";
 import "./header.css";
+import { useContext } from "react";
+import { userContext } from "../context/UserContext";
+import { FaCartArrowDown } from "react-icons/fa6";
+import { useSelector } from "react-redux";
+
 
 const Header = () => {
   const checkOnline = useOnlineStatus();
-  const [login, setLogin] = useState("Login");
+  // const [login, setLogin] = useState("Login");
 
-  const loginHandler = () => {
-    setLogin(login === "Login" ? "Logout" : "Login");
-  };
+  // const loginHandler = () => {
+  //   setLogin(login === "Login" ? "Logout" : "Login");
+  // };
+  const userValues = useContext(userContext)
+ 
+const cartItem=useSelector((store)=>store.cart.item)
+
+console.log(cartItem)
 
   return (
     <div className="header">
@@ -37,11 +47,13 @@ const Header = () => {
             <Link to="/user">Grocery</Link>
           </li>
           <li>
-            <Link to="/cart">Cart</Link>
+            <Link to="/cart"><FaCartArrowDown />{cartItem.length}</Link>
           </li>
-          <li>
-            <button onClick={loginHandler}>{login}</button>
-          </li>
+          {
+            userValues.name === '' ? <li>
+              <Link to='/login'><button>Login</button></Link>
+            </li> : <li>Welcome {userValues.name}</li>
+          }
         </ul>
       </div>
     </div>

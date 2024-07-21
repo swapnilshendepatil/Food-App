@@ -1,8 +1,13 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import useRestaurantMenu from "../utils/CustomHooks/useRestaurantMenu";
 import "./ResMenuPage.css";
 import { CDN_URL } from "../utils/constants";
+import { CartContext } from "../context/CartContext";
+import { useDispatch } from "react-redux";
+import { addItem } from "../utils/store/cartSlice";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const RestroMenupage = () => {
     const resId = useParams();
@@ -11,6 +16,9 @@ const RestroMenupage = () => {
     const { resMenuList, isLoading } = useRestaurantMenu(resId);
     const [openIndex, setOpenIndex] = useState(null);
 
+    const values = useContext(CartContext)
+    console.log('context data', values)
+    const dispatch = useDispatch()
     const toggleOpen = (index) => {
         setOpenIndex(openIndex === index ? null : index);
     };
@@ -30,9 +38,13 @@ const RestroMenupage = () => {
             "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory"
     );
 
-    console.log(category);
+    console.log(category)
 
     if (isLoading) return <div>Loading....</div>;
+    const handleAddItems = (resList) => {
+        dispatch(addItem({ name: resList?.card?.info?.name, price: resList?.card?.info?.price / 100 || resList?.card?.info?.defaultPrice / 100, photo: CDN_URL + resList?.card?.info?.imageId }))
+        toast.success(`${resList?.card?.info?.name} Added in Cart`)
+    }
 
     return (
         <div className="menu-container">
@@ -61,7 +73,7 @@ const RestroMenupage = () => {
                                     >
                                         <li className="accordion-list-item">
                                             {resList?.card?.info?.name}
-                                            <span> ₹{resList?.card?.info?.price / 100}</span>
+                                            <span> ₹{resList?.card?.info?.price / 100 || resList?.card?.info?.defaultPrice / 100}</span>
                                             <span style={{ fontSize: "small", width: "450px" }}>
                                                 {resList?.card?.info?.description}
                                             </span>
@@ -77,7 +89,10 @@ const RestroMenupage = () => {
                                                 style={{ width: "90px", height: "90px" }}
                                                 src={CDN_URL + resList?.card?.info?.imageId}
                                             />
-                                            <button className="cart-btn">Add</button>
+                                            {/* <button className="cart-btn" onClick={() => values.setData([...values.data, { name: resList?.card?.info?.name, price: resList?.card?.info?.price / 100 }])}>Add</button> */}
+                                            <button className="cart-btn" onClick={() => handleAddItems(resList)}>Add</button>
+                                            <ToastContainer />
+
                                         </div>
                                     </div>
                                 ))}

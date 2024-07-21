@@ -8,6 +8,7 @@ import Cart from "./components/Cart";
 import RestroMenupage from "./components/RestroMenupage";
 // import Grocery from "./components/Grocery";
 import { lazy, Suspense } from "react";
+import LoginForm from "./components/LoginForm";
 
 
 const User = lazy(() => import('./components/Grocery'))
@@ -15,8 +16,9 @@ const User = lazy(() => import('./components/Grocery'))
 function App() {
   return (
     <>
-      <Header />
-      <Outlet />
+      
+        <Header />
+        <Outlet />
     </>
   );
 }
@@ -46,6 +48,11 @@ export const appRouter = createBrowserRouter([
         path: '/restaurant/:resId',
         element: <RestroMenupage />
       },
+      {
+        path: '/login',
+        element: <LoginForm />
+      },
+
       {
         path: '/user',
         element: (
