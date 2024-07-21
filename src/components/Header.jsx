@@ -19,9 +19,6 @@ const Header = () => {
   const userValues = useContext(userContext)
  
 const cartItem=useSelector((store)=>store.cart.item)
-
-console.log(cartItem)
-
   return (
     <div className="header">
       <Link to="/">

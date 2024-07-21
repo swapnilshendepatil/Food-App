@@ -7,10 +7,7 @@ import 'react-toastify/dist/ReactToastify.css';
 const Cart = () => {
   const cartItems = useSelector((store) => store.cart.item)
   const dispatch = useDispatch()
-  console.log('cartItems', cartItems)
-
   const total = cartItems.reduce((a, b) => a + b.price, 0)
-  console.log(total)
   const clearCart = () => {
     dispatch(clearItem())
     toast.success('Cart Clear Successfully..!')

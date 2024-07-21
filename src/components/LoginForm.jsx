@@ -7,7 +7,7 @@ const LoginForm = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const values = useContext(userContext);
-    console.log(values)
+
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log('first Name',values.name)

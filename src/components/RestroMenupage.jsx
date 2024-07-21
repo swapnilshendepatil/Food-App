@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import useRestaurantMenu from "../utils/CustomHooks/useRestaurantMenu";
 import "./ResMenuPage.css";
 import { CDN_URL } from "../utils/constants";
-import { CartContext } from "../context/CartContext";
+// import { CartContext } from "../context/CartContext";
 import { useDispatch } from "react-redux";
 import { addItem } from "../utils/store/cartSlice";
 import { ToastContainer, toast } from 'react-toastify';
@@ -16,8 +16,7 @@ const RestroMenupage = () => {
     const { resMenuList, isLoading } = useRestaurantMenu(resId);
     const [openIndex, setOpenIndex] = useState(null);
 
-    const values = useContext(CartContext)
-    console.log('context data', values)
+    // const values = useContext(CartContext)
     const dispatch = useDispatch()
     const toggleOpen = (index) => {
         setOpenIndex(openIndex === index ? null : index);
@@ -38,7 +37,6 @@ const RestroMenupage = () => {
             "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory"
     );
 
-    console.log(category)
 
     if (isLoading) return <div>Loading....</div>;
     const handleAddItems = (resList) => {
