@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import  { useState } from 'react';
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -42,6 +42,7 @@ const Contact = () => {
                 value={formData.name}
                 onChange={handleChange}
                 required
+                placeholder='Enter name'
                 style={{ width: '100%', padding: '8px', marginTop: '5px' }}
               />
             </label>
@@ -55,6 +56,7 @@ const Contact = () => {
                 value={formData.email}
                 onChange={handleChange}
                 required
+                placeholder='enter email'
                 style={{ width: '100%', padding: '8px', marginTop: '5px' }}
               />
             </label>

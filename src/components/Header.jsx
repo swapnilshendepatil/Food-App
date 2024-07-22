@@ -17,8 +17,8 @@ const Header = () => {
   //   setLogin(login === "Login" ? "Logout" : "Login");
   // };
   const userValues = useContext(userContext)
- 
-const cartItem=useSelector((store)=>store.cart.item)
+
+  const cartItem = useSelector((store) => store.cart.item)
   return (
     <div className="header">
       <Link to="/">
@@ -46,11 +46,18 @@ const cartItem=useSelector((store)=>store.cart.item)
           <li>
             <Link to="/cart"><FaCartArrowDown />{cartItem.length}</Link>
           </li>
-          {
-            userValues.name === '' ? <li>
-              <Link to='/login'><button>Login</button></Link>
-            </li> : <li>Welcome {userValues.name}</li>
-          }
+          <ul>
+            {userValues && userValues.name === '' ? (
+              <li>
+                <Link to='/login'>
+                  <button>Login</button>
+                </Link>
+              </li>
+            ) : (
+              <li>Welcome {userValues.name || 'Guest'}</li>
+            )}
+          </ul>
+
         </ul>
       </div>
     </div>
